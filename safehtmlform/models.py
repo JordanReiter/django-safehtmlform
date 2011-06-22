@@ -9,4 +9,4 @@ class SafeHTMLField(models.CharField):
     def formfield(self, **kwargs):
         defaults = {'additional_elements': self.additional_elements}
         defaults.update(kwargs)
-        return super(SafeHTMLField, self).formfield(**defaults)
+        return SafeHTMLFormField(**defaults)
