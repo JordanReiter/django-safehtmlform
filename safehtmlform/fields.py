@@ -11,6 +11,7 @@ class SafeHTMLField(forms.CharField):
         additional_elements = kwargs.pop("additional_elements", None)
         if additional_elements:
             self.acceptable_elements += additional_elements
+        super(SafeHTMLField, self).__init__(*args, **kwargs)
 
     def clean(self, value):
         """
