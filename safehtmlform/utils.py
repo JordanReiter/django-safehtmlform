@@ -22,13 +22,13 @@ def sanitize_attrs(attrs):
     return sanitized_attrs
 
 
-def sanitize_html(value):
+def sanitize_html(value, elements=acceptable_elements):
     soup = BeautifulSoup(value)
     for comment in soup.findAll(
         text=lambda text: isinstance(text, Comment)):
         comment.extract()
     for tag in soup.findAll(True):
-        if tag.name not in acceptable_elements:
+        if tag.name not in elements:
             tag.hidden = True
         tag.attrs = sanitize_attrs(tag.attrs)
     return soup.renderContents().decode('utf8').replace('javascript:', '')
