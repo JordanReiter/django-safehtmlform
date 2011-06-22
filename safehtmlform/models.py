@@ -2,4 +2,11 @@ from django.db import models
 from fields import SafeHTMLField as SafeHTMLFormField
 
 class SafeHTMLField(models.CharField):
-    formfield = SafeHTMLFormField
+    def __init__(self, *args, **kwargs):
+        additional_elements = kwargs.pop("additional_elements", None)
+        super(SafeHTMLField, self).__init__(*args, **kwargs)
+
+    def formfield(self, **kwargs):
+        defaults = {'additional_elements': self.additional_elements}
+        defaults.update(kwargs)
+        return super(SafeHTMLField, self).formfield(**defaults)
