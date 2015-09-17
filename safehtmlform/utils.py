@@ -1,4 +1,8 @@
-from BeautifulSoup import BeautifulSoup, Comment
+try:
+    from bs4 import BeautifulSoup, Comment
+except ImportError:
+    from BeautifulSoup import BeautifulSoup, Comment
+
 import re
 
 acceptable_elements = ('a', 'abbr', 'acronym', 'address', 'b', 'blockquote', 'br', 'cite', 'code', 
