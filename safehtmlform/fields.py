@@ -1,5 +1,5 @@
 from django import forms
-from utils import sanitize_html, acceptable_elements
+from .utils import sanitize_html, acceptable_elements
 from django.utils.translation import ugettext as _
 
 class SafeHTMLField(forms.CharField):
