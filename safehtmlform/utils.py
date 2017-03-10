@@ -15,14 +15,15 @@ protocols_regex = "(%s)" % "|".join([re.escape(p) for p in acceptable_protocols]
 
 
 def sanitize_attrs(attrs):
-    sanitized_attrs = []
-    for (key, value) in [a for a in attrs if (a[0] in acceptable_attributes)]:
+    sanitized_attrs = {}
+    for (key, value) in [(key, val) for key, val in attrs.items() if (key in acceptable_attributes)]:
         if key != 'href':
-            sanitized_attrs.append((key, value))
+            sanitized_attrs[key] = value
         else:
             if re.search(r'^([a-z]+):', value):
+                value = value.replace(':80/', '/').replace(':443/', '/')
                 if re.match(r'^%s[^:]+$' % protocols_regex, value):
-                    sanitized_attrs.append((key, value))
+                    sanitized_attrs[key] = value
     return sanitized_attrs
 
 
